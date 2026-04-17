@@ -1,0 +1,40 @@
+DB CODES:
+-----------
+
+create table user(
+    -> id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    -> username VARCHAR(255) NOT NULL UNIQUE,
+    -> email VARCHAR(255) NOT NULL UNIQUE,
+    -> first_name VARCHAR(100),
+    -> last_name VARCHAR(100),
+    -> password VARCHAR(255) NOT NULL,
+    -> role ENUM('STUDENT','INSTRUCTOR','ADMIN') NOT NULL,
+    -> date_joined TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    -> last_login TIMESTAMP
+    -> );
+
+
+ CREATE TABLE instructor (
+    ->     id BIGINT PRIMARY KEY,
+    ->     qualification VARCHAR(255),
+    ->     expertise VARCHAR(255),
+    ->     bio TEXT,
+    ->     FOREIGN KEY (id) REFERENCES user(id) ON DELETE CASCADE
+    -> );
+
+ create table course(
+    -> id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    -> course_name VARCHAR(255) NOT NULL,
+    -> description TEXT,
+    -> instructor_id BIGINT NOT NULL,
+    -> FOREIGN KEY(instructor_id)REFERENCES instructor(id) ON DELETE CASCADE
+
+
+ Create table enrollment(
+    -> id Bigint auto_increment primary key,
+    -> student_id Bigint not null,
+    -> course_id bigint not null,
+    -> enrollment_date timestamp default current_timestamp,
+    -> foreign key(student_id) references user(id) on delete cascade,
+    -> foreign key(course_id) references course(id) on delete cascade
+    -> );
